@@ -1,4 +1,4 @@
-# Nodeschool
+# Nodeschool Solutions
 My nodeschool solutions.
 
 ## Preqreq
