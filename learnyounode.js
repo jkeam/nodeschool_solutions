@@ -21,7 +21,7 @@
 // 4. My First async i/o
 // const fs = require('fs');
 // fs.readFile(process.argv[2], 'utf8', (err, data) => {
-//   if (err) throw err;
+//   if (err) console.error(err);
 //   console.log(data.split("\n").length - 1);
 // });
 
@@ -29,21 +29,19 @@
 // const fs   = require('fs');
 // const path = require('path');
 // let dirname, filetype;
-// [dirname, filetype] = process.argv.splice(2, 3);
+// [dirname, filetype] = process.argv.slice(2);
 // fs.readdir(dirname, (err, list) => {
-//   if (err) throw err;
+//   if (err) console.error(err);
 //   list.filter((item) => path.extname(item) === `.${filetype}`).forEach((item) => console.log(item));
 // });
 
 // 6. Make it modular
 // const filter = require('./learnyounode_module');
 // let dirname, filetype;
-// [dirname, filetype] = process.argv.splice(2, 3);
+// [dirname, filetype] = process.argv.slice(2);
 // filter(dirname, filetype, (err, data) => {
-//   if (err) console.log('problems', err);
-//   data.forEach((item) => {
-//     console.log(item);
-//   });
+//   if (err) console.error(err);
+//   data.forEach((item) => console.log(item));
 // });
 
 // 7. HTTP Client
@@ -77,18 +75,13 @@
 
 // urls.forEach((url, index) => {
 //   http.get(url, (response) => {
-//     let allData = '';
 //     response.setEncoding('utf8');
-//     response.on('data', (data) => {
-//       responses[index] += data;
-//     });
 //     response.on('error', console.error);
+//     response.on('data', (data) => responses[index] += data);
 //     response.on('end', () => {
 //       countdownLatch--;
 //       if (countdownLatch === 0) {
-//         responses.forEach((resp) => {
-//           console.log(resp);
-//         })
+//         responses.forEach((resp) => console.log(resp));
 //       }
 //     });
 //   });
@@ -112,13 +105,13 @@
 // const fs = require('fs');
 // const http = require('http');
 // let port, filename;
-// [port, filename] = process.argv.splice(2, 3);
+// [port, filename] = process.argv.slice(2);
 
 // const server = http.createServer((req, res) => {
 //   res.writeHead(200, {'content-type': 'text/plain'});
 //   const readStream = fs.createReadStream(filename);
 //   readStream.on('open', () => readStream.pipe(res));
-//   readStream.on('error', (err) => res.end(err));
+//   readStream.on('error', res.end);
 // });
 // server.listen(port);
 
